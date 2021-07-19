@@ -1,5 +1,6 @@
 package com.daurenbek.encryptionapp
 
+import android.os.Environment
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -35,7 +36,7 @@ object FileCrypter {
     }
 
     fun encryptFile(originalFilePath: String) {
-        FileUtils.createDirIfNotExists("/storage/emulated/0/Download/encrypted")
+        FileUtils.createDirIfNotExists(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path + "/encrypted")
         val encryptedFilePath = createCopyOfOriginalFile(originalFilePath, true)
         val fis = FileInputStream(originalFilePath)
         val aes = Cipher.getInstance(ALGORITHM)
@@ -50,7 +51,7 @@ object FileCrypter {
     }
 
     fun decryptFile(originalFilePath: String) {
-        FileUtils.createDirIfNotExists("/storage/emulated/0/Download/decrypted")
+        FileUtils.createDirIfNotExists(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path + "/decrypted")
         val decryptedFilePath = createCopyOfOriginalFile(originalFilePath, false)
         val filePath = getFileParentPath(originalFilePath)
         val fileName = getFileNameFromPath(originalFilePath)
@@ -86,10 +87,10 @@ object FileCrypter {
         val originalFile = File(originalFilePath)
         val copyFile: File?
         if (isEncryption) {
-            copyFile = File("/storage/emulated/0/Download/encrypted", "$TEMP_FILE_TAG$fileName")
+            copyFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path + "/encrypted", "$TEMP_FILE_TAG$fileName")
         }
         else {
-            copyFile = File("/storage/emulated/0/Download/decrypted", "$TEMP_FILE_TAG$fileName")
+            copyFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path + "/decrypted", "$TEMP_FILE_TAG$fileName")
         }
 
         try {

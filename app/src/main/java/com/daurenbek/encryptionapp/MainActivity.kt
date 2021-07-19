@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
 import android.provider.OpenableColumns
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -93,7 +94,9 @@ class MainActivity : AppCompatActivity() {
             FileCrypter.encryptFile(newOriginalFilePath)
             Toast.makeText(
                 applicationContext,
-                "Successfully encrypted in\n/storage/emulated/0/Download/encrypted",
+                "Successfully encrypted in\n" + Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DOWNLOADS
+                ).path + "/encrypted",
                 Toast.LENGTH_SHORT
             ).show()
 
@@ -123,7 +126,9 @@ class MainActivity : AppCompatActivity() {
             FileCrypter.decryptFile(newOriginalFilePath)
             Toast.makeText(
                 applicationContext,
-                "Successfully decrypted in\n/storage/emulated/0/Download/decrypted",
+                "Successfully decrypted in\n" + Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DOWNLOADS
+                ).path + "/decrypted",
                 Toast.LENGTH_SHORT
             ).show()
         }
