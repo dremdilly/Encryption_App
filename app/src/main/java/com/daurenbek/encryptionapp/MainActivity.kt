@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
 import android.provider.OpenableColumns
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -60,6 +61,8 @@ class MainActivity : AppCompatActivity() {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
         }
+        binding.progressBar.visibility = View.VISIBLE
+        binding.textView.visibility = View.VISIBLE
         fileChooserToEncrypt.launch(intent)
     }
 
@@ -68,8 +71,9 @@ class MainActivity : AppCompatActivity() {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
         }
+        binding.progressBar.visibility = View.VISIBLE
+        binding.textView.visibility = View.VISIBLE
         fileChooserToDecrypt.launch(intent)
-
     }
 
     private fun chooseFileToEncrypt(result: ActivityResult) {
@@ -93,6 +97,8 @@ class MainActivity : AppCompatActivity() {
                 newOriginalFilePath = it.substring(it.lastIndexOf(":") + 1)
             }
             FileCrypter.encryptFile(newOriginalFilePath)
+            binding.progressBar.visibility = View.INVISIBLE
+            binding.textView.visibility = View.INVISIBLE
             Toast.makeText(
                 applicationContext,
                 "Successfully encrypted in\n" + Environment.getExternalStoragePublicDirectory(
@@ -125,6 +131,8 @@ class MainActivity : AppCompatActivity() {
                 newOriginalFilePath = it.substring(it.lastIndexOf(":") + 1)
             }
             FileCrypter.decryptFile(newOriginalFilePath)
+            binding.progressBar.visibility = View.INVISIBLE
+            binding.textView.visibility = View.INVISIBLE
             Toast.makeText(
                 applicationContext,
                 "Successfully decrypted in\n" + Environment.getExternalStoragePublicDirectory(
