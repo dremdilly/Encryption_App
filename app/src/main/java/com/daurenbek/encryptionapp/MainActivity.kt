@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             checkForPermissions()
             decryptFile()
         }
+
     }
 
     private fun encryptFile() {
@@ -67,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
         }
-        fileChooserToEncrypt.launch(intent)
+        fileChooserToDecrypt.launch(intent)
 
     }
 
