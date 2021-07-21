@@ -30,12 +30,13 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { result ->
         }
     private lateinit var binding: ActivityMainBinding
-    private val loadingDialog = LoadingDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        checkForPermissions()
 
         binding.encryptButton.setOnClickListener {
             checkForPermissions()
@@ -143,7 +144,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkForPermissions() {
+    private fun checkForPermissions(): Boolean {
         if (ActivityCompat.checkSelfPermission(
                 applicationContext,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -165,6 +166,8 @@ class MainActivity : AppCompatActivity() {
         ) {
             permissionLauncher.launch(Manifest.permission.MANAGE_EXTERNAL_STORAGE)
         }
+
+        return false
     }
 
     fun writeFile(`in`: InputStream, file: File?) {
