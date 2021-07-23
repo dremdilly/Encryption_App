@@ -2,4 +2,5 @@
     <string name="app_name">Encryption App</string>
     <string name="encrypt">Encrypt</string>
     <string name="decrypt">Decrypt</string>
+    <string name="loading">Loading…</string>
 </resources>
